@@ -49,13 +49,13 @@ public class Main {
         products.forEach(System.out::println); //
 
         Scanner sc = new Scanner(System.in);
+        System.out.println("Iveskite producto id ");
         while (true) {
             System.out.println("Iveskite produkto id, kuri norite prideti i krepseli. Iseiti 0.");
             int productId = sc.nextInt();
             if (productId == 0) {
                 break;
             }
-
             Product product = products.stream().filter(i -> i.id == productId).findFirst().orElse(new Product());
             productsCart.add(product);
             product.quantity++;
@@ -66,29 +66,41 @@ public class Main {
 
         }
 
+        System.out.println(" Prekes trinimas spaukite 00, jei norite pabaigti spauskite 0");
+        Scanner sc1= new Scanner(System.in);
 
-        System.out.println("Iveskite prekes Id, kuria norite istrinti: ");
-        int removeId = sc.nextInt();
-        System.out.println("iveskite kieki: ");
-        int removeQuantity = sc.nextInt();
+        String delete = sc1.nextLine();
 
-        removeFromCart(removeId, removeQuantity, productsCart);
+        if (delete.equals("00")){
+            System.out.println("Iveskite prekes Id, kuria norite istrinti: ");
+            int removeId = sc1.nextInt();
+            System.out.println("iveskite kieki: ");
+            int removeQuantity = sc1.nextInt();
 
-        System.out.println("Jusu krepselyje yra tokie produktai:");
-        productsCart.forEach(System.out::println);
+            removeFromCart(removeId, removeQuantity, productsCart);
+
+            System.out.println("Jusu krepselyje yra tokie produktai:");
+            productsCart.forEach(System.out::println);
+        }
+
+
+
 
         printTotalQuantity(productsCart);
         printTotalCost(productsCart);
     }
 
+
     public static void printTotalQuantity(List<Product> productsCart) {
     }
+
 
     public static void printTotalCost(List<Product> productsCart) {
         double totalCost = 0;
         for (Product product : productsCart) {
             totalCost += product.price * product.quantity;
         }
+        System.out.println("Produktu krepselis: " + productsCart);
         System.out.println("produktu krepselyje suma yra : " + totalCost);
     }
 
